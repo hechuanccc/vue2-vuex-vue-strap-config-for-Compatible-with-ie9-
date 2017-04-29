@@ -1,21 +1,13 @@
 <template>
     <div class="container">
-        <nav class="cov-nav">
-            <div class="nav-tab" @click="navRoute($event, 'index')">首页</div>
-            <div class="nav-tab" @click="navRoute($event, 'themes')">主题日报</div>
-            <div class="nav-tab" @click="navRoute($event, 'about')">关于</div>
-            <div class="nav-rail">
-                <span class="nav-moving" :style="covNav.moving"></span>
-            </div>
-        </nav>
-        <router-view></router-view>
-        <progress :percent.sync="Progress.percent" :options="Progress.options"> </progress>
+        <div class="test" @click="test">test click!</div>
+        <div>{{name}}</div>
     </div>
 </template>
 
 <script>
-import progress from 'vue-progressbar/vue-progressbar.vue'
 import store from '../vuex/index/store'
+import { mapState } from 'vuex'
 
 export default {
     store: store,
@@ -41,54 +33,13 @@ export default {
             }
         }
     },
-    components: {
-        progress
-    },
-    created () {
-        this.$progress.setHolder(this.vueProgress)
-    },
-    ready () {
-        this.initNav()
+    computed: {
+        ...mapState(['name'])
     },
     methods: {
-        navRoute (e, name) {
-            this.touchNav(e, () => {
-                this.$route.router.go({name: name})
-            })
-        },
-        initNav () {
-            let x = document.getElementsByClassName('nav-tab')[0].clientWidth * 0.5
-            this.covNav.moving = {
-                width: '8px',
-                transform: `translateX(${x}px)`
-            }
-        },
-        moving (w, x) {
-            this.covNav.currentX = x
-            this.covNav.moving = {
-                width: w + 'px',
-                transform: `translateX(${x - w}px)`
-            }
-        },
-        touchNav (e, after) {
-            let parent = e.target.parentNode || e.path[1]
-            let count = 1
-            for (let node of parent.getElementsByClassName('nav-tab')) {
-                if (node === e.target) {
-                    break
-                }
-                count++
-            }
-            let x = e.target.clientWidth * (count - 0.5)
-            this.moving(e.target.clientWidth * 0.8 + x * 0.05, x + e.target.clientWidth * 0.5 + x * 0.05)
-            this.$nextTick(() => {
-                setTimeout(() => {
-                    this.covNav.moving = {
-                        width: '8px',
-                        transform: `translateX(${x}px)`
-                    }
-                    after()
-                }, 100)
+        test () {
+            this.$store.dispatch('test', 'hechuan').then((data) => {
+                console.log(data)
             })
         }
     }

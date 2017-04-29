@@ -1,3 +1,4 @@
+import 'es6-promise/dist/es6-promise.auto.js'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
@@ -49,5 +50,8 @@ Vue.prototype.$Api = (url) => {
 Vue.config.debug = process.env.NODE_ENV === 'dev'
 
 sync(store, router)
-
-router.start(App, 'cov-app')
+new Vue({
+    router,
+    store,
+    ...App
+}).$mount('#app')

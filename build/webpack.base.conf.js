@@ -3,6 +3,10 @@ var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 module.exports = {
   entry: {
     app: './src/index.js'
@@ -16,6 +20,7 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
+      'vue': 'vue/dist/vue.common.js',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
       'components': path.resolve(__dirname, '../src/components')
@@ -43,6 +48,11 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue'
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [resolve('src'), resolve('test')]
       },
       {
         test: /\.js$/,

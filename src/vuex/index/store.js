@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as actions from './action'
+console.log('actions')
+console.log(actions)
 
 Vue.use(Vuex)
 
@@ -9,8 +12,11 @@ const state = {
         format: ''
     },
     days: [],
-    themes: []
+    themes: [],
+    name: 'wx'
 }
+
+let test = 0
 
 const mutations = {
     ['SET_ARTICLES'] (state, date, arr) {
@@ -24,11 +30,15 @@ const mutations = {
     },
     ['SET_THEMES'] (state, arr) {
         state.themes = arr
+    },
+    ['TEST'] (state, name) {
+        state.name = test++
     }
 }
 
 export default new Vuex.Store({
     state,
     mutations,
+    actions,
     strict: true
 })

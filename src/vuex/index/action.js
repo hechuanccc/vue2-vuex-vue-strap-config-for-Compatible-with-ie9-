@@ -21,3 +21,11 @@ export const setThemes = ({ dispatch }, date, arr) => {
     dispatch('SET_THEMES', date, arr)
 }
 
+export const test = ({ commit }, name) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            commit('TEST')
+            resolve('hahaha')
+        }, 3000)
+    })
+}
