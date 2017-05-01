@@ -1,22 +1,22 @@
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
-var config = require('../config')
+var config = require('../config/index')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
 
-var imagebox    = require('../server/routes/imagebox')
-var api         = require('../server/routes/api') 
-
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+var port = process.env.PORT || config.port
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
+var proxyTable = config.proxyTable
+
 
 var app = express()
+
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -56,16 +56,12 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 
 // serve pure static assets
-var staticPath = path.join(config.build.assetsPublicPath, config.build.assetsSubDirectory)
-app.use(staticPath, express.static('./' + config.build.assetsSubDirectory))
+var staticPath = path.join(config.assetsPublicPath, config.assetsSubDirectory)
+console.log('staticPath ' + staticPath)
+console.log('=========================================')
+console.log('/' + config.assetsSubDirectory)
+app.use(staticPath, express.static('./' + config.assetsSubDirectory))
 
-app.get('/imagebox', imagebox.upload)
-app.get('/readapi', api.requestApi)
+// APIS
 
-module.exports = app.listen(port, '0.0.0.0', function (err) {
-  if (err) {
-    console.log(err)
-    return
-  }
-  console.log('Listening at http://localhost:' + port + '\n')
-})
+module.exports = app

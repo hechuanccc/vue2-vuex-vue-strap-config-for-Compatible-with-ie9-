@@ -2,6 +2,12 @@
     <div class="container">
         <div class="test" @click="test">test click!</div>
         <div>{{name}}</div>
+        <div @click="checkGet">test api!</div>
+        <a href="ww">222</a>
+        <div class="fa fa-reply"></div>
+        <div class="t-grey text-success">ww</div>
+        <div class="f-circle frotate-05"></div>
+        <div class="fa fa-phone light-green"></div>
     </div>
 </template>
 
@@ -41,64 +47,23 @@ export default {
             this.$store.dispatch('test', 'hechuan').then((data) => {
                 console.log(data)
             })
+        },
+        checkGet () {
+            this.$http.get('/api/checkname').then(response => {
+                console.log(response.data)
+            })
         }
+    },
+    components: {
+        pageStyle: require('../components/style.vue')
     }
 }
 </script>
 
-<style>
-    html {
-        font-size: 62.5%;
-        font-family: Hiragino Sans GB,Helvetica,Arial,STHeiti,WenQuanYi Micro Hei,sans-serif;
-    }
-    * {
-        padding: 0;
-        margin: 0;
-    }
-    body {
-        background-color: #F5F5F5;
-    }
-    .container {
-        max-width: 80rem;
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 7rem;
-    }
-    .cov-nav {
-        position: fixed;
-        height: 6rem;
-        width: 100%;
-        background-color: #252e39;
-        top: 0;
-        left: 0;
-        z-index: 2;
-        font-size: 1.5rem;
-        color: #fff;
-    }
-    .nav-tab {
-        display: inline-block;
-        height: 6rem;
-        line-height: 6rem;
-        text-align: center;
-        min-width: 8rem;
-        cursor: pointer;
-    }
-    .nav-rail {
-        position: absolute;
-        height: 4px;
-        width: 100%;
-        bottom: 1rem;
-        background-color: #182128;
-    }
-    .nav-moving {
-        position: absolute;
-        background-color: #4CFFFE;
-        height: 8px;
-        width: 1rem;
-        border-radius: 4px;
-        transition-property: transform, width;
-        transition-duration: .3s;
-        transition-timing-function: ease-out;
-        margin-top: -1px;
+<style lang="scss">
+    .frotate-05 {
+        right: 0;
+        top: 35px;
+        animation-delay: 0.65s;
     }
 </style>

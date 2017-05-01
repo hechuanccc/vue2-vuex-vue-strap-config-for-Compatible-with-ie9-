@@ -1,0 +1,8 @@
+build/*.js
+config/*.js
+webpack.*.js
+node_modules/*
+*-compiled.js
+test/*
+src/*
+server/*

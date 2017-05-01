@@ -2,6 +2,7 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
+let ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -12,8 +13,8 @@ module.exports = {
     app: './src/index.js'
   },
   output: {
-    path: config.build.assetsRoot,
-    publicPath: config.build.assetsPublicPath,
+    path: config.assetsRoot,
+    publicPath: config.assetsPublicPath,
     filename: '[name].js'
   },
   resolve: {
@@ -59,6 +60,14 @@ module.exports = {
         loader: 'babel',
         include: projectRoot,
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader!sass-loader'
       },
       {
         test: /\.json$/,

@@ -1,33 +1,34 @@
 'use strict'
 
-const express   = require('express')
-const app       = express()
+const express = require('express')
+const app = require('../build/dev-server')
+const config = require('../config/index')
+const api = require('./routes/api')
 
-// RESOURCES
-const imagebox    = require('./routes/imagebox')
-const api         = require('./routes/api') 
+const port = process.env.PORT || config.port
 
-//
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.set({
         'Access-Control-Allow-Origin': '*'
     })
     next()
 })
-app.use(express.static(__dirname + '/public'));
+
+app.use(express.static(__dirname + '/public'))
 
 // APIS
 app.get('/test', function (req, res, next) {
-	console.log('in test')
-	res.json({
-		name: 'test'
-	})
+    res.json({
+        'name': 'test'
+    })
 })
-app.get('/imagebox', imagebox.upload)
-app.get('/readapi', api.requestApi)
-app.get('*', (req, res) => {res.sendFile(__dirname + '/public/index.html')})
+app.use('/api', api)
+app.get('*', (req, res) => { res.sendFile(__dirname + '/public/index.html')})
 
-
-app.listen(3001, () => {
-    console.log(`app is listening at port:80`)
+app.listen(port, function (err) {
+    if (err) {
+        console.log(err)
+        return
+    }
+    console.log('Listening at222 http://localhost:' + port + '\n')
 })

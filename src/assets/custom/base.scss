@@ -1,0 +1,67 @@
+@import "../scss/variables.md.scss";
+
+body{font-family: NotoSansHans-Regular,AvenirNext-Regular,arial,Hiragino Sans GB,"Microsoft Yahei","Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;}
+
+.app-body a {
+    color: $blue;
+}
+.app-body a:hover {
+    color: $blue-800;
+}
+
+.lh-md {
+    line-height: 1.8;
+}
+
+.t-green {
+    color: $green;
+}
+.t-grey {
+    color: $grey-500;
+}
+
+.t-red {
+    color: $red;
+}
+.t-red-500{
+    color: $red-500;
+}
+
+.form-control, .btn-group .btn{
+    font-size: 0.8125rem;
+}
+
+.btn-group .dropdown-toggle{
+    background-color: $grey-200
+}
+
+.inline-form-control{
+    display: inline-block;
+}
+
+.label-width{
+    width: 6rem;
+}
+
+.xsm-input{
+    font-size: 0.6rem;
+    min-height: 2rem;
+    width: 4rem;
+}
+
+a.text-blue:hover {
+    color: #0b7bd4;
+    text-decoration: underline;
+}
+
+.form-input-sm.form-inline {
+    .text-sm {
+        width:60px;
+    }
+    .form-control{
+        width: 110px;
+    }
+}
+.md-btn[disabled] {
+    border: 1px solid #e0e0e0;
+}
